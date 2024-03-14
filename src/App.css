@@ -1,15 +1,21 @@
 * {
   text-align: center;
   color: #314d59;
-  background-color: #fcfcf9;
 }
 
 .content{
   height: 100vh;
+  width: 100vw;
+  background-color: #fcfcf9;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .mappings_container{
   margin-top: 11.8vh;
+  width: 61.8vw;
 }
 
 .mappings_table {

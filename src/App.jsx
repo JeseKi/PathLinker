@@ -99,12 +99,12 @@ const handeDeleteMapping = (url) => {
   }, [])
 
   return (
-    <Container className='content'>
+    <div className='content'>
       {/* title */}
-      <h1 style={{marginTop: "19.1vh", fontSize: "8vw"}}>PathLinker</h1>
+      <h1 style={{fontSize: "8vw"}}>PathLinker</h1>
       <div className='mappings_container'>
         {/* add button */}
-        <Button style={{marginRight: "-50vw"}} onClick={handleAddShow}>Add</Button>
+        <Button style={{marginRight: "-96%"}} onClick={handleAddShow}>Add</Button>
         {/* mappings */}
         <Table className='mappings_table'>
           <thead>
@@ -192,7 +192,7 @@ const handeDeleteMapping = (url) => {
           </Button>
         </Modal.Footer>
       </Modal>
-    </Container>
+    </div>
   );
 }
 
