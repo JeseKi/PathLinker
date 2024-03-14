@@ -1,7 +1,7 @@
 use rusqlite::{params, Connection, Result};
 
 pub fn connect() -> Result<Connection, rusqlite::Error> { // 修正函数名和Result类型
-    let conn = Connection::open("pathlinker.db")?;
+    let conn = Connection::open("../pathlinker.db")?;
 
     // 创建一个新表，如果它还不存在的话
     conn.execute(
@@ -17,46 +17,8 @@ pub fn connect() -> Result<Connection, rusqlite::Error> { // 修正函数名和R
     Ok(conn)
 }
 
-pub mod crud {
+pub mod base_crud {
     use rusqlite::{params, Connection, Result, OptionalExtension};
-    use super::super::utils;
-
-    pub fn create_mapping(conn: &Connection, file_name: &str, path: &str, url: &str) -> Result<bool> {
-
-        // 检查路径是否已存在
-        let existing_path: Option<String> = conn.query_row(
-            "SELECT path FROM mapping WHERE path = ?1",
-            params![path],
-            |row| row.get(0),
-        ).optional()?;
-
-        if existing_path.is_some() {
-            // 如果路径已存在，返回错误
-            println!("路径已存在");
-            return Ok(false); // 在实际应用中，你可能想返回一个错误而不是打印一条消息
-        }
-
-        // 检查URL是否已存在
-        let mut final_url: String = url.to_string();
-        let existing_url: Option<String> = conn.query_row(
-            "SELECT url FROM mapping WHERE url = ?1",
-            params![url],
-            |row| row.get(0),
-        ).optional()?;
-
-        if existing_url.is_some() {
-            // 如果URL已存在，则生成一个新的URL
-            final_url = utils::generate_random_url();
-        }
-
-        // 创建新的映射并保存到数据库
-        conn.execute(
-            "INSERT INTO mapping (file_name, path, url) VALUES (?1, ?2, ?3)",
-            params![file_name, path, &final_url],
-        )?;
-
-        Ok(true)
-    }
 
     // 删除映射
     pub fn delete_mapping_by_url(conn: &Connection, url: &str) -> Result<()> {
