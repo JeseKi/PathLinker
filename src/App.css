@@ -1,7 +1,21 @@
-.logo.vite:hover {
-  filter: drop-shadow(0 0 2em #747bff);
+* {
+  text-align: center;
+  color: #314d59;
+  background-color: #fcfcf9;
 }
 
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafb);
+.content{
+  height: 100vh;
+}
+
+.mappings_container{
+  margin-top: 11.8vh;
+}
+
+.mappings_table {
+  width: auto;
+  min-height: 38.2vh;
+  border: 3px solid #000000;
+  border-radius: 10px;
+  overflow-y:scroll;
 }
