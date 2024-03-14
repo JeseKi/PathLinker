@@ -12,12 +12,13 @@ edition = "2021"
 tauri-build = { version = "1", features = [] }
 
 [dependencies]
-tauri = { version = "1", features = [ "path-all", "dialog-all", "shell-open"] }
+tauri = { version = "1", features = [ "clipboard-all", "path-all", "dialog-all", "shell-open"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 open = "5.1.2"
 rand = "0.8.5"
 rusqlite = "0.31.0"
+tokio = "1.36.0"
 
 [features]
 # This feature is used for production builds or when a dev server is not specified, DO NOT REMOVE!!

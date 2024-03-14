@@ -21,11 +21,14 @@
       },
       "path": {
         "all": true
+      },
+      "clipboard": {
+        "all": true
       }
     },
     "windows": [
       {
-        "title": "tauri-learn",
+        "title": "PathLinker",
         "width": 800,
         "height": 600
       }

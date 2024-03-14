@@ -1,6 +1,5 @@
 use rusqlite::{params, Connection, Result, OptionalExtension};
 
-    use crate::db::base_crud::Mapping;
     use super::{db , utils};
 
     // 连接到数据库
@@ -19,14 +18,6 @@ use rusqlite::{params, Connection, Result, OptionalExtension};
             Ok(None) => "".to_string(),  // 当URL没有对应的路径时返回空字符串
             Err(_) => "查询过程中出现错误".to_string(),  // 当查询出现错误时返回错误信息
         }
-    }
-    
-    // 获取全部映射
-    pub fn get_mappings(conn: &Connection) -> Vec<Mapping> {
-        match db::base_crud::get_all_mappings(conn) {
-            Ok(mappings) => mappings,  // 如果成功获取映射，直接返回这些映射
-            Err(_) => Vec::new(),      // 如果出现错误，返回一个空的向量
-        } 
     }
 
     // 创建映射

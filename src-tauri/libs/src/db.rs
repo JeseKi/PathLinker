@@ -19,6 +19,7 @@ pub fn connect() -> Result<Connection, rusqlite::Error> { // 修正函数名和R
 
 pub mod base_crud {
     use rusqlite::{params, Connection, Result, OptionalExtension};
+    use serde::{Serialize, Deserialize};
 
     // 删除映射
     pub fn delete_mapping_by_url(conn: &Connection, url: &str) -> Result<()> {
@@ -52,7 +53,7 @@ pub mod base_crud {
     }
     
     // 根据id获取映射
-    #[derive(Clone, Debug)]
+    #[derive(Clone, Debug, Serialize, Deserialize)]
     pub struct Mapping {
         pub id: i32,
         pub file_name: String,
@@ -72,20 +73,20 @@ pub mod base_crud {
     }
 
     // 获取全部映射
-    pub fn get_all_mappings(conn: &Connection) -> Result<Vec<Mapping>> {
-        let mut stmt = conn.prepare("SELECT id, file_name, path, url FROM mapping")?;
+    pub fn get_all_mappings(conn: &Connection) -> Result<Vec<Mapping>, String> {
+        let mut stmt = conn.prepare("SELECT id, file_name, path, url FROM mapping").expect("表格获取失败");
         let mapping_iter = stmt.query_map(params![], |row| {
             Ok(Mapping {
-                id: row.get(0)?,
-                file_name: row.get(1)?,
-                path: row.get(2)?,
-                url: row.get(3)?,
+                id: row.get(0).expect("ID获取失败"),
+                file_name: row.get(1).expect("文件名获取失败"),
+                path: row.get(2).expect("路径获取失败"),
+                url: row.get(3).expect("URL获取失败"),
             })
-        })?;
+        }).expect("获取数据库映射失败！");
     
         let mut mappings = Vec::new();
         for mapping in mapping_iter {
-            mappings.push(mapping?);
+            mappings.push(mapping.expect("映射添加失败"));
         }
         Ok(mappings)
     }

@@ -15,12 +15,12 @@
 
 .mappings_container{
   margin-top: 11.8vh;
-  width: 61.8vw;
+  width: 61.8%;
+  min-height: 38.2vh;
 }
 
 .mappings_table {
   width: auto;
-  min-height: 38.2vh;
   border: 3px solid #000000;
   border-radius: 10px;
   overflow-y:scroll;
