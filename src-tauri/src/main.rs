@@ -1,5 +1,5 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-use std::sync::{Arc, Mutex};
+use std::{os::unix::process, sync::{Arc, Mutex}};
 use backend_opearation as bo;
 use libs::crud;
 
@@ -11,19 +11,17 @@ fn main() {
     };
 
     // 处理自定义协议
-    // let args: Vec<String> = std::env::args().collect();
-    // if args.len() > 1 {
-    //     let url = &args[1];
-    //     // 根据打开文件的情况进行处理，正常打开则自动关闭新实例，打开失败则弹出错误窗口来提醒用户原因
-    //     let flag = bo::open_file(app_state, url.to_string()).await;
-    //     match flag {
-    //         Ok(..) => std::process::exit(0),
-    //         Err(e) => {
-    //             tauri::api::dialog::message(Some(&tauri::Window::current().unwrap()), "Error", &e);
-    //         }
-    //     }
-    //     std::process::exit(0);
-    // }
+    let args: Vec<String> = std::env::args().collect();
+    if args.len() > 1 {
+        let url = &args[1];
+        let conn = crud::connect_db();
+        println!("url:{url}");
+        let flag = bo::open_file(&conn, url);
+        match flag {
+            Ok(..) => std::process::exit(0),
+            Err(..) => std::process::exit(1),
+        }
+    }
 
     // 程序运行
     tauri::Builder::default()
@@ -64,11 +62,6 @@ mod backend_opearation {
             } else {
                 eprintln!("Failed to extract file name from path: {}", path);
             }
-    
-            // 尝试打开文件
-            // if let Err(e) = open::that(&path) {
-            //     eprintln!("Failed to open the file: {}", e);
-            // }
         }
     
         Ok(())
@@ -100,9 +93,8 @@ mod backend_opearation {
     }
 
     // 打开文件
-    pub async fn open_file(state: State<'_, AppState>, url: String) -> Result<(), String> {
-        let conn = state.conn.lock().unwrap();
-        let path = crud::get_filepath_by_url(&*conn, &url);
+    pub fn open_file(conn: &Connection, url: &String) -> Result<(), String> {
+        let path = crud::get_filepath_by_url(conn, url);
         let flag = open::that(&path);
 
         match flag {
