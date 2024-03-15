@@ -9,7 +9,7 @@ import Mappings from "./compoents/table"
 function App() {
   const [mappings, setMappings] = useState([]);
 
-  // 获取全部映射数据
+// 获取全部映射数据
   async function fetchData() {
     try {
       const data = await invoke('get_mappings');
@@ -19,7 +19,7 @@ function App() {
     }
   }  
 
-// 组件挂载时获取数据
+// 挂载时获取数据
   useEffect(() => {
     fetchData();
   }, [])

@@ -1,6 +1,6 @@
 use rusqlite::{params, Connection, Result};
 
-pub fn connect() -> Result<Connection, rusqlite::Error> { // 修正函数名和Result类型
+pub fn connect() -> Result<Connection, rusqlite::Error> {
     let conn = Connection::open("../pathlinker.db")?;
 
     // 创建一个新表，如果它还不存在的话
@@ -20,6 +20,14 @@ pub fn connect() -> Result<Connection, rusqlite::Error> { // 修正函数名和R
 pub mod base_crud {
     use rusqlite::{params, Connection, Result, OptionalExtension};
     use serde::{Serialize, Deserialize};
+
+    #[derive(Clone, Debug, Serialize, Deserialize)]
+    pub struct Mapping {
+        pub id: i32,
+        pub file_name: String,
+        pub path: String,
+        pub url: String,
+    }
 
     // 删除映射
     pub fn delete_mapping_by_url(conn: &Connection, url: &str) -> Result<()> {
@@ -53,14 +61,6 @@ pub mod base_crud {
     }
     
     // 根据id获取映射
-    #[derive(Clone, Debug, Serialize, Deserialize)]
-    pub struct Mapping {
-        pub id: i32,
-        pub file_name: String,
-        pub path: String,
-        pub url: String,
-    }
-
     pub fn get_mapping_by_id(conn: &Connection, mapping_id: i32) -> Result<Option<Mapping>> {
         conn.query_row("SELECT id, file_name, path, url FROM mapping WHERE id = ?1", params![mapping_id], |row| {
             Ok(Mapping {
