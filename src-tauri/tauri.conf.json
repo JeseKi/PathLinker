@@ -6,7 +6,7 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "tauri-learn",
+    "productName": "pathlinker",
     "version": "0.0.0"
   },
   "tauri": {
