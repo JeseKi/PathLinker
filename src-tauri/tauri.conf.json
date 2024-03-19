@@ -41,7 +41,8 @@
       "targets": "all",
       "identifier": "com.jeseki.pathlinker",
       "icon": [
-        "icons/icon.png"
+        "icons/icon.png",
+        "icons/icon.ico"
       ]
     }
   }
