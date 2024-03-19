@@ -1,12 +1,10 @@
+#![cfg(test)]
+use libs::{crud, utils};
 
-use libs::crud;
 #[test]
-fn read_test () {
+fn test() {
     let conn = crud::connect_db();
-    let mappings = crud::get_mappings(&conn);
-
-    println!("{:?}", mappings);
-    let url = "pathlinker://NjqChOseJV";
-    let path = crud::get_filepath_by_url(&conn, &url);
-    println!("path:{path}")
+    let my_query = "pathlinker://lrULTffYQ3";
+    let my_path = crud::get_filepath_by_url(&conn, my_query);
+    println!("{:?}, len: {}", my_path, my_path.len())
 }

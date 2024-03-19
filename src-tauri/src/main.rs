@@ -1,7 +1,7 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 use std::sync::{Arc, Mutex};
 use backend_opearation as bo;
-use libs::{crud, utils};
+use libs::{crud, db, utils};
 
 fn main() {
     let connection = Arc::new(Mutex::new(crud::connect_db()));
@@ -14,12 +14,10 @@ fn main() {
     let args: Vec<String> = std::env::args().collect();
     if args.len() > 1 {
         let url = &args[1];
-        utils::log_to_file(&format!("Received URL: {}", url));
-    
+        // utils::log_to_file(&format!("Received URL: {}", url));
         let conn = crud::connect_db();
-        println!("url:{url}");
-        utils::log_to_file(&format!("Attempting to open URL: {}", url));
-    
+        // println!("url:{url}");
+        // utils::log_to_file(&format!("Attempting to open URL: {}", url));
         let flag = bo::open_file(&conn, url);
         match flag {
             Ok(..) => {
@@ -105,6 +103,7 @@ mod backend_opearation {
     // 打开文件
     pub fn open_file(conn: &Connection, url: &String) -> Result<(), String> {
         let path = crud::get_filepath_by_url(conn, url);
+        // utils::log_to_file(&format!("Attempting to open file: {}", &path));
         let flag = open::that(&path);
 
         match flag {

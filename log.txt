@@ -1,0 +1,3 @@
+Received URL: pathlinker://lrULTffYQ3
+Attempting to open URL: pathlinker://lrULTffYQ3
+URL opened successfully.

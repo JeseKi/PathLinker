@@ -13,10 +13,28 @@ use rusqlite::{params, Connection, Result, OptionalExtension};
 
     // 根据url获取路径
     pub fn get_filepath_by_url(conn: &Connection, url: &str) -> String {
+        // debgug: 在查找时获取全部路径
+        // let db_mappings = db::base_crud::get_all_mappings(conn);
+        // match db_mappings {
+        //     Ok(mappings) => {
+        //         utils::log_to_file(&format!("db get filepath by url: Found mappings:{:?}", mappings));
+        //     }
+        //     
+        //     Err(e) => {
+        //         utils::log_to_file(&format!("Failed to get mappings: {}", e));
+        //     }
+        // }
+        // utils::log_to_file(&format!("Getting filepath by url: {}", url));
         match db::base_crud::get_path_by_url(conn, url) {
             Ok(Some(path)) => path,
-            Ok(None) => "".to_string(),  // 当URL没有对应的路径时返回空字符串
-            Err(_) => "查询过程中出现错误".to_string(),  // 当查询出现错误时返回错误信息
+            Ok(None) => {
+                utils::log_to_file(&format!("Error: No filepath found for url: {}", url));
+                "./log.txt".to_string()
+            },  // 当URL没有对应的路径时自动打开日志文件
+            Err(_) => {
+                utils::log_to_file("Error: Failed to get filepath by url");
+                "查询过程中出现错误".to_string()
+            },  // 当查询出现错误时返回错误信息
         }
     }
 

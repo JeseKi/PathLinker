@@ -9,7 +9,7 @@ pub fn generate_random_url() -> String {
         .map(char::from)
         .collect();
 
-    format!("pathlinker://{}", random_path)
+    format!("pathlinker://{}/", random_path)
 }
 
 pub fn log_to_file(message: &str) {

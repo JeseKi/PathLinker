@@ -35,6 +35,8 @@ pub mod base_crud {
     use rusqlite::{params, Connection, Result, OptionalExtension};
     use serde::{Serialize, Deserialize};
 
+    use crate::utils;
+
     #[derive(Clone, Debug, Serialize, Deserialize)]
     pub struct Mapping {
         pub id: i32,
@@ -67,6 +69,18 @@ pub mod base_crud {
 
     // 根据url获取路径
     pub fn get_path_by_url(conn: &Connection, url: &str) -> Result<Option<String>> {
+        // debgug: 在查找时获取全部路径
+        let db_mappings = super::base_crud::get_all_mappings(conn);
+        match db_mappings {
+            Ok(mappings) => {
+                utils::log_to_file(&format!("base_crud_get_filepath_by_url: Found mappings:{:?}", mappings));
+            }
+            
+            Err(e) => {
+                utils::log_to_file(&format!("Failed to get mappings: {}", e));
+            }
+        }
+        utils::log_to_file(&format!("Getting filepath by url: {}\nlen:{}", url, url.len()));
         conn.query_row(
             "SELECT path FROM mapping WHERE url = ?1",
             params![url],
