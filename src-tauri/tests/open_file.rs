@@ -6,12 +6,12 @@ fn open_file () {
 
     let conn = db::connect();
 
-    let mut my_mapping: Vec<db::crud::Mapping> = vec![];
+    let mut my_mapping: Vec<db::base_crud::Mapping> = vec![];
 
     match conn {
         Ok(conn) => {
             println!("Connected to SQLite database");
-            let mappings  = db::crud::get_all_mappings(&conn);
+            let mappings  = db::base_crud::get_all_mappings(&conn);
             println!("{:?}", mappings);
             match mappings {
                 Ok(mappings_vec) => {
