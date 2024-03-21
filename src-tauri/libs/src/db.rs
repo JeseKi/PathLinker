@@ -73,14 +73,14 @@ pub mod base_crud {
         let db_mappings = super::base_crud::get_all_mappings(conn);
         match db_mappings {
             Ok(mappings) => {
-                utils::log_to_file(&format!("base_crud_get_filepath_by_url: Found mappings:{:?}", mappings));
+                utils::log_to_file(&format!("base_crud_get_filepath_by_url: Found mappings:{:?}", mappings), None);
             }
             
             Err(e) => {
-                utils::log_to_file(&format!("Failed to get mappings: {}", e));
+                utils::log_to_file(&format!("Failed to get mappings: {}", e), None);
             }
         }
-        utils::log_to_file(&format!("Getting filepath by url: {}\nlen:{}", url, url.len()));
+        utils::log_to_file(&format!("Getting filepath by url: {}\nlen:{}", url, url.len()), None);
         conn.query_row(
             "SELECT path FROM mapping WHERE url = ?1",
             params![url],

@@ -341,8 +341,10 @@ checksum = "8eaf5903dcbc0a39312feb77df2ff4c76387d591b9fc7b04a238dcf8bb62639a"
 dependencies = [
  "android-tzdata",
  "iana-time-zone",
+ "js-sys",
  "num-traits",
  "serde",
+ "wasm-bindgen",
  "windows-targets 0.52.4",
 ]
 
@@ -1637,6 +1639,7 @@ dependencies = [
 name = "libs"
 version = "0.1.0"
 dependencies = [
+ "chrono",
  "dirs",
  "rand 0.8.5",
  "rusqlite",
@@ -2047,6 +2050,7 @@ checksum = "8835116a5c179084a830efb3adc117ab007512b535bc1a21c991d3b32a6b44dd"
 name = "pathlinker"
 version = "0.0.0"
 dependencies = [
+ "chrono",
  "dirs",
  "open 5.1.2",
  "rand 0.8.5",
