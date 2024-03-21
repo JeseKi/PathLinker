@@ -39,15 +39,20 @@ Since I don't have a Mac yet, I hope developers with Mac can help me complete th
 ## 🛠️ Usage
 1. Open `pathlinker`
 2. Click `select files`
+
 ![step2](README/step2.png)
 3. Select the file(s) you want to map (you can select multiple at once)
+
 ![step3](README/step3.png)
 4. You can click `copy` to copy the URL corresponding to the mapping
+
 ![step4](README/step4.png)
 5. Now you can use the URL to open the file in other places, such as Obsidian (a Markdown note-taking software):
+
 ![open_1](README/open_1.png)
 
 Or XMind (a mind mapping software):
+
 ![open_2](README/open_2.png)
 ![open_3](README/open_3.png)
 
@@ -56,6 +61,7 @@ And even HTML:
 ![open_4](README/open_4.png)
 
 6. When you click on the URL, the file will be opened with the default software:
+ 
 ![open_5](README/open_5.png)
 
 ## 📝 ToDo
