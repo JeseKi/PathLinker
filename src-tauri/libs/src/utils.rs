@@ -4,6 +4,7 @@ use std::io::Write;
 use std::path::PathBuf;
 use chrono::Local;
 
+/// Generate a random URL.
 pub fn generate_random_url() -> String {
     let random_path: String = rand::thread_rng()
         .sample_iter(&Alphanumeric)

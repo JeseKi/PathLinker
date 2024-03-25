@@ -52,7 +52,36 @@ pub fn get_filepath_by_url(conn: &Connection, url: &str) -> String {
     }
 }
 
-// 创建映射
+/// Creates a mapping between a file name, path, and URL in the database.
+///
+/// # Parameters
+/// - `conn`: The database connection handle.
+/// - `file_name`: The name of the file to be mapped.
+/// - `path`: The local file system path to be associated with the file.
+/// - `url`: The URL to be associated with the file.
+///
+/// # Returns
+/// - `Ok(true)`: If the mapping is created successfully.
+/// - `Ok(false)`: If the path already exists in the database.
+///
+/// # Errors
+/// This function will return an error if any SQLite operation fails.
+///
+/// # Example
+/// ```
+/// use rusqlite::Connection;
+///
+/// let connection: Connection = connect_db();
+/// let file_name = "example.txt";
+/// let path = "/files/example.txt";
+/// let url = "pathlinker://test";
+///
+/// match create_mapping(&connection, file_name, path, url) {
+///     Ok(true) => println!("Mapping created successfully."),
+///     Ok(false) => println!("Mapping already exists."),
+///     Err(e) => println!("Error creating mapping: {}", e),
+/// }
+/// ```
 pub fn create_mapping(conn: &Connection, file_name: &str, path: &str, url: &str) -> Result<bool> {
 
     // 检查路径是否已存在
@@ -64,7 +93,7 @@ pub fn create_mapping(conn: &Connection, file_name: &str, path: &str, url: &str)
 
     if existing_path.is_some() {
         // 如果路径已存在，返回错误
-        return Ok(false); // 在实际应用中，你可能想返回一个错误而不是打印一条消息
+        return Ok(false);
     }
 
     // 检查URL是否已存在

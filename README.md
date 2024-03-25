@@ -67,7 +67,9 @@ And even HTML:
 ## 📝 ToDo
 - [ ] Support for Mac
 - [ ] Multilingual support
-- [ ] Automatic updates
+- [ ] Automatic update version
+- [ ] Support searching linked files by filename in the frontend.
+- [ ] Support batch file management in the frontend
 - [ ] Settings page
   - [ ] Specifically, allow for backup and automatic updates for some/all mapped files
   - [ ] Automatically track changes in the path of monitored files in a specified directory and update the database automatically

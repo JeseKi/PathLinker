@@ -8,21 +8,21 @@ use rusqlite::Connection;
 
 fn main() {
 
-    let connection = Arc::new(Mutex::new(crud::connect_db()));
+    let connection: Arc<Mutex<Connection>> = Arc::new(Mutex::new(crud::connect_db()));
 
-    let app_state = bo::AppState {
+    let app_state: bo::AppState = bo::AppState {
         conn: connection,
     };
 
     // 处理自定义协议
     let args: Vec<String> = std::env::args().collect();
     if args.len() > 1 {
-        let url = &args[1];
+        let url: &String = &args[1];
         // utils::log_to_file(&format!("Received URL: {}", url));
-        let conn = crud::connect_db();
+        let conn: Connection = crud::connect_db();
         // println!("url:{url}");
         // utils::log_to_file(&format!("Attempting to open URL: {}", url));
-        let flag = open_file(&conn, url);
+        let flag: Result<(), String> = open_file(&conn, url);
         match flag {
             Ok(..) => {
                 utils::log_to_file("URL opened successfully.", None);
@@ -45,9 +45,9 @@ fn main() {
 
 // 根据URL打开对应映射的文件
 fn open_file(conn: &Connection, url: &String) -> Result<(), String> {
-    let path = crud::get_filepath_by_url(conn, url);
+    let path: String = crud::get_filepath_by_url(conn, url);
     // utils::log_to_file(&format!("Attempting to open file: {}", &path));
-    let flag = open::that(&path);
+    let flag: Result<(), std::io::Error> = open::that(&path);
 
     match flag {
         Ok(..) => Ok(()),
