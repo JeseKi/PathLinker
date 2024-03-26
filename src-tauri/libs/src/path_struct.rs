@@ -35,6 +35,7 @@ pub fn build_hard_link_path(original_path: &PathBuf, user_name: &str) -> PathBuf
     {
         let file_system = df_parse::get_file_system_info(original_path.to_str().unwrap())
             .unwrap_or_else(|_| ("/".to_string(), "/".to_string()));
+        println!("文件系统:{}", file_system.1);
 
         let mut hard_link_path = PathBuf::from(&file_system.1);
         hard_link_path.push(user_name);
@@ -46,6 +47,7 @@ pub fn build_hard_link_path(original_path: &PathBuf, user_name: &str) -> PathBuf
     #[cfg(target_os = "windows")]
     {
         let drive_letter = original_path.to_str().unwrap().chars().next().unwrap_or('C');
+        println!("驱动器:{}", drive_letter);
         let mut hard_link_path = PathBuf::from(format!("{}:/", drive_letter));
         hard_link_path.push("Users");
         hard_link_path.push(user_name);

@@ -37,7 +37,7 @@ pub fn get_hard_link_by_url(conn: &Connection, url: &str) -> String {
     log_path.push("pathlinker");
     std::fs::create_dir_all(&log_path).expect("Failed to create directory for log file");
     log_path.push("log.txt");
-    match db::base_crud::get_hand_link_by_url(conn, url) {
+    match db::base_crud::get_hard_link_by_url(conn, url) {
         Ok(Some(hard_link)) => hard_link,
         Ok(None) => {
             // 写入日志

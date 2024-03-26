@@ -70,10 +70,11 @@ And even HTML:
 - [ ] Automatic update version
 - [ ] Support searching linked files by filename in the frontend.
 - [ ] Support batch file management in the frontend
-- [ ] Settings page
-  - [ ] Specifically, allow for backup and automatic updates for some/all mapped files
-  - [ ] Automatically track changes in the path of monitored files in a specified directory and update the database automatically
-  - [ ] Use specific software to open files with specified extensions.
+- [ ] Not dependent on the original path
+- [ ] Set up page
+  - [ ] When the source file is deleted, the mapped path is automatically deleted
+  - [ ] Set the directory used for automatic tracking to be pathlinker directory
+  - [ ] Use specific software to open files with specified extensionsied extensions.
 - [ ] Implementation of error reporting when opening files, instead of showing `log.txt`
 - [ ] Allow for exporting/importing file mapping data
 

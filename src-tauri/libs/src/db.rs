@@ -47,7 +47,7 @@ pub mod base_crud {
         pub hand_link: String,
     }
 
-    // 删除映射
+    // 根据URL删除映射
     pub fn delete_mapping_by_url(conn: &Connection, url: &str) -> Result<()> {
         conn.execute("DELETE FROM mapping WHERE url = ?1", params![url])?;
         Ok(())
@@ -70,7 +70,7 @@ pub mod base_crud {
     }
 
     // 根据url获取硬链接
-    pub fn get_hand_link_by_url(conn: &Connection, url: &str) -> Result<Option<String>> {
+    pub fn get_hard_link_by_url(conn: &Connection, url: &str) -> Result<Option<String>> {
         // debgug: 在查找时获取全部路径
         let db_mappings = super::base_crud::get_all_mappings(conn);
         match db_mappings {
