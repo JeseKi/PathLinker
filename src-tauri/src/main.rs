@@ -1,5 +1,5 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-mod backend_opearation;
+pub mod backend_opearation;
 
 use std::sync::{Arc, Mutex};
 use backend_opearation as bo;
@@ -45,7 +45,7 @@ fn main() {
 
 // 根据URL打开对应映射的文件
 fn open_file(conn: &Connection, url: &String) -> Result<(), String> {
-    let path: String = crud::get_filepath_by_url(conn, url);
+    let path: String = crud::get_hard_link_by_url(conn, url);
     // utils::log_to_file(&format!("Attempting to open file: {}", &path));
     let flag: Result<(), std::io::Error> = open::that(&path);
 

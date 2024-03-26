@@ -54,7 +54,7 @@ function Mappings ({data}) {
             <tr>
                 <th>#</th>
                 <th>Name</th>
-                <th>Path</th>
+                <th>Origin Path</th>
                 <th>URL</th>
                 <th></th>
                 <th></th>
@@ -65,7 +65,7 @@ function Mappings ({data}) {
                 <tr key={index}>
                 <td>{index + 1}</td>
                 <td>{mapping.file_name}</td>
-                <td>{mapping.path}</td>
+                <td>{mapping.origin_path}</td>
                 <td><a href={mapping.url}>{mapping.url}</a></td>
                 <td>
                     {/* copy button */}

@@ -11,7 +11,7 @@ pub fn connect_db () -> Connection{
     }
 }
 
-/// Gets the corresponding path based on the URL.
+/// Gets the corresponding hard_link based on the URL.
 ///
 /// # Parameters
 /// * `conn` - A reference to the database.
@@ -19,17 +19,17 @@ pub fn connect_db () -> Connection{
 ///
 /// # Returns
 /// Returns one of the following three strings:
-/// 1. The path corresponding to the URL (normal query).
-/// 2. "log.txt" (if there is no path corresponding to the URL in the database).
+/// 1. The hard_link corresponding to the URL (normal query).
+/// 2. "log.txt" (if there is no hard_link corresponding to the URL in the database).
 /// 3. An error string (if an error occurs during the query).
 /// # Example
 /// ```
 /// let conn = connect_db(); // Returns a `rusqlite::Connection` object
 /// let url = "pathlinker://testurl" // Assume the database contains this URL
-/// let path = get_filepath_by_url(&conn , &url); // Calls the function
-/// println!("path:{}", path) // 1. "/home/test.txt" (assuming the URL corresponds to the path `/home/test.txt`) 2. "./log.txt" (assuming there is no corresponding path in the database) 3. "An error occurred during the query" (assuming an error occurs during the query)
+/// let hard_link = get_hard_link_by_url(&conn , &url); // Calls the function
+/// println!("hard_link:{}", hard_link) // 1. "/home/test.txt" (assuming the URL corresponds to the hard_link `/home/test.txt`) 2. "./log.txt" (assuming there is no corresponding hard_link in the database) 3. "An error occurred during the query" (assuming an error occurs during the query)
 /// ```
-pub fn get_filepath_by_url(conn: &Connection, url: &str) -> String {
+pub fn get_hard_link_by_url(conn: &Connection, url: &str) -> String {
     let mut log_path = dirs::data_local_dir().unwrap_or_else(|| {
         eprintln!("Unable to find data local directory");
         PathBuf::new()
@@ -37,32 +37,32 @@ pub fn get_filepath_by_url(conn: &Connection, url: &str) -> String {
     log_path.push("pathlinker");
     std::fs::create_dir_all(&log_path).expect("Failed to create directory for log file");
     log_path.push("log.txt");
-    match db::base_crud::get_path_by_url(conn, url) {
-        Ok(Some(path)) => path,
+    match db::base_crud::get_hand_link_by_url(conn, url) {
+        Ok(Some(hard_link)) => hard_link,
         Ok(None) => {
             // 写入日志
-            utils::log_to_file(&format!("Error: No filepath found for url: {}", url), None);
+            utils::log_to_file(&format!("Error: No hard_link found for url: {}", url), None);
             log_path.to_str().unwrap_or_else(|| "无法转换路径为字符串").to_string()
         },
         
         Err(_) => {
-            utils::log_to_file("Error: Failed to get filepath by url", None);
+            utils::log_to_file("Error: Failed to get hard_link by url", None);
             "An error occurred during the query".to_string()
         },  // Returns an error message when an error occurs during the query
     }
 }
 
-/// Creates a mapping between a file name, path, and URL in the database.
+/// Creates a mapping between a file name, path, URL , and hard_link in the database.
 ///
 /// # Parameters
 /// - `conn`: The database connection handle.
 /// - `file_name`: The name of the file to be mapped.
 /// - `path`: The local file system path to be associated with the file.
 /// - `url`: The URL to be associated with the file.
+/// - `hard_link` The hard_link to orign file
 ///
 /// # Returns
-/// - `Ok(true)`: If the mapping is created successfully.
-/// - `Ok(false)`: If the path already exists in the database.
+/// - `Ok()`: If the mapping is created successfully.
 ///
 /// # Errors
 /// This function will return an error if any SQLite operation fails.
@@ -77,24 +77,11 @@ pub fn get_filepath_by_url(conn: &Connection, url: &str) -> String {
 /// let url = "pathlinker://test";
 ///
 /// match create_mapping(&connection, file_name, path, url) {
-///     Ok(true) => println!("Mapping created successfully."),
-///     Ok(false) => println!("Mapping already exists."),
+///     Ok() => println!("Mapping created successfully."),
 ///     Err(e) => println!("Error creating mapping: {}", e),
 /// }
 /// ```
-pub fn create_mapping(conn: &Connection, file_name: &str, path: &str, url: &str) -> Result<bool> {
-
-    // 检查路径是否已存在
-    let existing_path: Option<String> = conn.query_row(
-        "SELECT path FROM mapping WHERE path = ?1",
-        params![path],
-        |row| row.get(0),
-    ).optional()?;
-
-    if existing_path.is_some() {
-        // 如果路径已存在，返回错误
-        return Ok(false);
-    }
+pub fn create_mapping(conn: &Connection, file_name: &str, origin_path: &str, url: &str, hard_link: &str) -> Result<()> {
 
     // 检查URL是否已存在
     let mut final_url: String = url.to_string();
@@ -111,9 +98,9 @@ pub fn create_mapping(conn: &Connection, file_name: &str, path: &str, url: &str)
 
     // 创建新的映射并保存到数据库
     conn.execute(
-        "INSERT INTO mapping (file_name, path, url) VALUES (?1, ?2, ?3)",
-        params![file_name, path, &final_url],
+        "INSERT INTO mapping (file_name, origin_path, url, hard_link) VALUES (?1, ?2, ?3, ?4)",
+        params![file_name, origin_path, &final_url, hard_link],
     )?;
 
-    Ok(true)
+    Ok(())
 }

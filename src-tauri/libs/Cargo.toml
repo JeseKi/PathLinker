@@ -11,3 +11,5 @@ dirs = "5.0.1"
 rand = "0.8.5"
 rusqlite = "0.31.0"
 serde = "1.0.197"
+uuid = { version="1.8.0", features = ["v4"]}
+whoami = "1.5.1"
