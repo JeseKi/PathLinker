@@ -1,5 +1,6 @@
 use std::path::PathBuf;
 use uuid::Uuid;
+#[cfg(target_os = "linux")]
 use df_command_parse as df_parse;
 
 /// Build hard link path
@@ -54,8 +55,8 @@ pub fn build_hard_link_path(original_path: &PathBuf, user_name: &str) -> PathBuf
 }
 
 // parse df command on linux
+#[cfg(target_os = "linux")]
 mod df_command_parse {
-    #[cfg(target_os = "linux")]
     use std::process::{Command, Output};
 
     pub fn get_file_system_info(file_path: &str) -> Result<(String, String), String> {
