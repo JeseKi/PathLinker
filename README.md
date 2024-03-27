@@ -85,12 +85,21 @@ And even HTML:
 Please check if you have followed the steps. On Windows, make sure to run `register.bat`, and on Linux, if you are using AppImage, you need to run `init.sh`. If it still doesn't work, please try submitting issues.
 
 ### Is it safe?
-PathLinker works by storing the path of a file in a database and generating a random URL to store in the database along with it. When the URL is clicked, the system registry will pass the URL to the application, which will then query the corresponding path in the database and call the default program to open the file based on the obtained path.
-Therefore, you don't have to worry about the following issues:
+PathLinker operates by creating a fixed hard link for files, storing the hard link path in a database, and generating a random URL to be stored alongside in the database. When the URL is clicked, the system registry passes the URL to the application, which then queries the corresponding hard link path from the database and uses it to open the file with the default program. Therefore, you don't need to worry about the following issues:
 1. Will the file be accessed if the URL is leaked online?
 2. Will the file be accessed if the database is leaked online?
 3. Will the software accidentally modify important system files?
 
-However, this also means that if you switch to a different computer, you might not be able to open the file via the URL because the database stores the path on your local machine, so you need to remap.
+### Can it still be used normally after switching to a different computer?
+Yes, after switching to a different computer, as long as the database file and the file system are moved together, normal usage is ensured.
 
-We will address this issue with file backup and automatic updates in a future update.
+You can understand it as long as the disk drive letter remains unchanged, even if you switch computers, it can still be used normally. For Windows systems, if the mapped file is on the C drive, like this: `C:\Users\YouName\Desktop\mydoc.docx`, when you switch computers, just ensure that the file is also on the C drive and on the original disk to ensure normal usage. For Linux systems, since I mostly use the home directory, transferring the hard drive to another computer will also work fine.
+
+We will add the functionality to export and import database files in future updates to facilitate database transfer and transitions between different disks and file systems.
+
+### Will the mappings I create occupy a lot of disk storage space?
+No.
+
+The principle of hard links is to point to a storage address, so the disk storage space occupied by a new hard link is negligible.
+
+However, since it's a hard link, when you delete the source file, the disk space occupied by the source file itself will not be released. The space will only be freed after deleting the corresponding mapping in PathLinker. We will add an option to automatically delete the mapped file when the source file is deleted in future updates.
