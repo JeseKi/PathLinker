@@ -75,6 +75,7 @@ And even HTML:
   - [ ] When the source file is deleted, the mapped path is automatically deleted
   - [ ] Set the directory used for automatic tracking to be pathlinker directory
   - [ ] Use specific software to open files with specified extensionsied extensions.
+  - [ ] Custom hard link creation mode
 - [ ] Implementation of error reporting when opening files, instead of showing `log.txt`
 - [ ] Allow for exporting/importing file mapping data
 
