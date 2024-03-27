@@ -1,0 +1,2 @@
+[INFO]:获取到用户名: Jese__Ki 发生在2024-03-27 15:35:15
+[INFO]:数据库已导出至: /home/Jese__Ki/.local/share/pathlinker/pathlinker.csv 发生在2024-03-27 15:35:15
