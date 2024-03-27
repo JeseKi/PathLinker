@@ -42,7 +42,6 @@
 
 #[test]
 fn read_test () {
-    use libs::utils;
     use libs::crud;
     use libs::db;
 

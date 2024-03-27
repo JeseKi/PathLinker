@@ -52,7 +52,9 @@ pub fn build_hard_link_path(original_path: &PathBuf, user_name: &str) -> PathBuf
         let drive_letter = original_path.to_str().unwrap().chars().next().unwrap_or('C');
         println!("驱动器:{}", drive_letter);
         let mut hard_link_path = PathBuf::from(format!("{}:/", drive_letter));
-        hard_link_path.push("Users");
+        if drive_letter == 'C' {
+            hard_link_path.push("Users");
+        }
         hard_link_path.push(user_name);
         hard_link_path.push(".pathlinker");
         hard_link_path.push(new_file_name);
