@@ -29,7 +29,7 @@ use df_command_parse as df_parse;
 pub fn build_hard_link_path(original_path: &PathBuf, user_name: &str) -> PathBuf {
     let file_name = original_path.file_name().unwrap_or_default().to_str().unwrap_or_default();
     let uuid = Uuid::new_v4().simple().to_string();
-    let short_uuid = &uuid[..5]; // 限制UUID为10位
+    let short_uuid = &uuid[..5]; // 限制UUID为5位
     let extension = original_path.extension().unwrap_or_default().to_str().unwrap_or_default();
     let new_file_name = format!("{}.{}.{}", file_name, short_uuid, extension);
     
