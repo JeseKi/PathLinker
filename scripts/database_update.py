@@ -154,4 +154,5 @@ db_path.unlink(missing_ok=True)  # 删除原数据库文件，如果文件不存
 new_db_path.rename(db_path)  # 将新数据库文件重命名为原数据库文件的名称
 
 print("  ˶╹ꇴ╹˶  数据库迁移完成！")
+event_time_log("数据库迁移完成。")
 input("按回车键退出...")
