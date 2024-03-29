@@ -60,11 +60,12 @@ def build_hard_link_path(original_path, file_name, user_name):
         file_system_path = get_file_system_path(original_path)
         hard_link_path = Path(file_system_path) / user_name / ".pathlinker" / new_file_name
     elif platform.system() == "Windows":
-        drive_letter = original_path.drive
-        hard_link_path = Path(f"{drive_letter}/")
-        if drive_letter.upper() == 'C:':
-            hard_link_path /= "Users"
-        hard_link_path /= user_name / ".pathlinker" / new_file_name
+        drive_letter = original_path.drive  # 应该已经包含冒号（如 C:）
+        root_path = Path(f"{drive_letter}\\")  # 构造绝对路径的根，如 C:\
+        if drive_letter.upper() == 'C:\\':
+            hard_link_path = root_path / "Users" / user_name / ".pathlinker" / new_file_name
+        else:
+            hard_link_path = root_path / user_name / ".pathlinker" / new_file_name
     else:
         raise OSError("不支持的操作系统")
 
