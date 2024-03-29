@@ -13,23 +13,23 @@
 - URL所对应的文件可通过URL进行打开
 ## 📦 安装
 ### Windows
-1. 下载并解压[pathlinker_0.1.0.1_x64_windows.zip](https://github.com/JeseKi/PathLinker/releases/download/preview/pathlinker_0.1.0.1_x64_windows.zip)
-2. 双击`pathlinker_0.1.0.1_x64_windows.msi`进行安装(**推荐不修改安装路径**)
+1. 下载并解压[pathlinker_0.2.0_x64_windows.zip](https://github.com/JeseKi/PathLinker/releases/download/v0.2.0/pathlinker_0.2.0_x64_windows.zip)
+2. 双击`pathlinker_0.2.0_x64_en-US.msi`进行安装(**推荐不修改安装路径**)
 3. 执行`register.bat`来添加注册表项
 
 ### Linux
 #### deb
-1. 下载[deb包](https://github.com/JeseKi/PathLinker/releases/download/preview/pathlinker_linux_0.1.0-1_amd64_AppImage.zip)
+1. 下载[deb包](https://github.com/JeseKi/PathLinker/releases/download/v0.2.0/pathlinker_linux_0.2.0_amd64.deb)
 
-2. 执行`sudo dpgk -i pathlinker_linux_0.1.0-1_amd64.deb`
+2. 执行`sudo dpgk -i pathlinker_linux_0.2.0_amd64.deb`
 #### AppImage
-1. 下载并解压[pathlinker_linux_0.1.0-1_amd64_AppImage.zip](https://github.com/JeseKi/PathLinker/releases/download/preview/pathlinker_linux_0.1.0-1_amd64_AppImage.zip)
+1. 下载并解压[pathlinker_linux_0.2.0_amd64_AppImage.zip](https://github.com/JeseKi/PathLinker/releases/download/v0.2.0/pathlinker_linux_0.2.0_amd64_AppImage.zip)
 2. 执行
 ```bash
 # 将应用添加到注册表
 sudo bash init.sh
 # 赋予执行权限
-sudo chmod +x pathlinker_0.1.0-1_amd64.AppImage
+sudo chmod +x pathlinker_0.2.0_amd64.AppImage
 ```
 
 ### Mac
@@ -62,7 +62,7 @@ sudo chmod +x pathlinker_0.1.0-1_amd64.AppImage
 - [ ] 自动更新版本
 - [ ] 支持在前端批量管理文件
 - [ ] 支持在前端通过文件名搜索已链接的文件
-- [ ] 不依赖原始路径
+- [x] 不依赖原始路径
 - [ ] 设置页面
   - [ ] 源文件删除时，映射路径自动删除
   - [ ] 设置自动跟踪所使用的目录pathlinker目录

@@ -14,23 +14,24 @@
 
 ## 📦 Installation
 ### Windows
-1. Download and unzip [pathlinker_0.1.0.1_x64_windows.zip](https://github.com/JeseKi/PathLinker/releases/download/preview/pathlinker_0.1.0.1_x64_windows.zip)
-2. Double-click `pathlinker_0.1.0.1_x64_windows.msi` to install (**recommended not to change the installation path**)
+1. Download and unzip [pathlinker_0.2.0_x64_windows.zip
+](https://github.com/JeseKi/PathLinker/releases/download/v0.2.0/pathlinker_0.2.0_x64_windows.zip)
+2. Double-click `pathlinker_0.2.0_x64_en-US.msi` to install (**recommended not to change the installation path**)
 3. Run `register.bat` to add registry entries.
 
 ### Linux
 #### deb
-1. Download the [deb package](https://github.com/JeseKi/PathLinker/releases/download/preview/pathlinker_linux_0.1.0-1_amd64_AppImage.zip)
+1. Download the [deb package](https://github.com/JeseKi/PathLinker/releases/download/v0.2.0/pathlinker_linux_0.2.0_amd64.deb)
 
-2. Execute `sudo dpgk -i pathlinker_linux_0.1.0-1_amd64.deb`
+2. Execute `sudo dpgk -i pathlinker_linux_0.2.0_amd64.deb`
 #### AppImage
-1. Download and unzip [pathlinker_linux_0.1.0-1_amd64_AppImage.zip](https://github.com/JeseKi/PathLinker/releases/download/preview/pathlinker_linux_0.1.0-1_amd64_AppImage.zip)
+1. Download and unzip [pathlinker_linux_0.2.0_amd64_AppImage.zip](https://github.com/JeseKi/PathLinker/releases/download/v0.2.0/pathlinker_linux_0.2.0_amd64_AppImage.zip)
 2. Execute
 ```bash
 # Add the application to the registry
 sudo bash init.sh
 # Grant execution permission
-sudo chmod +x pathlinker_0.1.0-1_amd64.AppImage
+sudo chmod +x pathlinker_0.2.0_amd64.AppImage
 ```
 
 ### Mac
@@ -70,7 +71,7 @@ And even HTML:
 - [ ] Automatic update version
 - [ ] Support searching linked files by filename in the frontend.
 - [ ] Support batch file management in the frontend
-- [ ] Not dependent on the original path
+- [x] Not dependent on the original path
 - [ ] Set up page
   - [ ] When the source file is deleted, the mapped path is automatically deleted
   - [ ] Set the directory used for automatic tracking to be pathlinker directory
