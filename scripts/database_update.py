@@ -141,13 +141,31 @@ conn.close()
 if len(error_paths) > 0:
     event_time_log(f"硬链接创建出错的路径:\n{error_paths}\n请尝试联系软件作者、提交issue或将`log.txt`发送到作者邮箱中。")
 
+# 假设 csv_path 和 db_path 已经被正确定义
 new_df = pd.read_csv(csv_path)
 new_db_path = db_path.with_suffix('.new.db')
-# 创建新的数据库连接和表结构
-conn = sqlite3.connect(new_db_path)
-df.to_sql('mapping', conn, if_exists='replace', index=False)
 
-# 关闭新数据库连接
+# 创建新的数据库连接
+conn = sqlite3.connect(new_db_path)
+
+# 先创建表
+create_table_sql = """
+CREATE TABLE IF NOT EXISTS mapping (
+    id INTEGER PRIMARY KEY,
+    file_name TEXT NOT NULL,
+    origin_path TEXT NOT NULL,
+    url TEXT UNIQUE NOT NULL,
+    hard_link TEXT UNIQUE NOT NULL
+);
+"""
+conn.execute(create_table_sql)
+
+# 现在，使用DataFrame的to_sql方法导入数据。注意这里使用的是'append'而不是'replace'
+# 因为'replace'会删除现有表然后重建，这可能会导致约束和索引丢失
+new_df.to_sql('mapping', conn, if_exists='append', index=False)
+
+# 提交事务并关闭数据库连接
+conn.commit()
 conn.close()
 
 # 删除原数据库文件，并将新数据库文件重命名
