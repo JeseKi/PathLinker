@@ -67,7 +67,8 @@ And even HTML:
 
 ## 📝 ToDo
 - [ ] Support for Mac
-- [ ] Multilingual support
+- [ ] After copying the file, allow direct pasting of the URL into the editor, without the need to manually create a new mapping.
+- [x] Multilingual support
 - [ ] Automatic update version
 - [ ] Support searching linked files by filename in the frontend.
 - [ ] Support batch file management in the frontend
