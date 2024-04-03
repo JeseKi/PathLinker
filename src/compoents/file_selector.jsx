@@ -3,7 +3,7 @@ import { open } from '@tauri-apps/api/dialog';
 import { invoke } from '@tauri-apps/api/tauri';
 import { Button }from "react-bootstrap"
 
-function FileSelector() {
+function FileSelector({t}) {
   const [selectedFile, setSelectedFile] = useState(null);
 
   // Choose multi files
@@ -24,7 +24,7 @@ function FileSelector() {
 
   return (
     <div style={{marginRight:"-90%"}}>
-        <Button onClick={openFileDialog}>select Files</Button>
+        <Button onClick={openFileDialog}>{t('index.select_files')}</Button>
         {selectedFile && (
         <p style={{display:"none"}}>Selected file: {Array.isArray(selectedFile) ? selectedFile.join(', ') : selectedFile}</p>
         )}

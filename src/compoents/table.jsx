@@ -4,7 +4,7 @@ import { invoke } from '@tauri-apps/api/tauri';
 import { clipboard } from '@tauri-apps/api';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function Mappings ({data}) {
+function Mappings ({data , t}) {
     const [mappings, setMappings] = useState([]);
     const [deleteURL , setDeleteURL] = useState("")
     const [deleteShow, setDeleteShow] = useState(false)
@@ -16,7 +16,7 @@ function Mappings ({data}) {
     const copyToClipboard = async (url) => {
       try {
         await clipboard.writeText(url);
-        alert('URL copied to clipboard');
+        alert(t('index.copy_done'));
       } catch (err) {
         console.error('Could not copy text: ', err);
       }
@@ -53,9 +53,9 @@ function Mappings ({data}) {
             <thead>
             <tr>
                 <th>#</th>
-                <th>Name</th>
-                <th>Origin Path</th>
-                <th>URL</th>
+                <th>{t('index.name')}</th>
+                <th>{t('index.origin_path')}</th>
+                <th>{t('index.url')}</th>
                 <th></th>
                 <th></th>
             </tr>
@@ -70,13 +70,13 @@ function Mappings ({data}) {
                 <td>
                     {/* copy button */}
                     <Button variant="primary" onClick={() => copyToClipboard(mapping.url)}>
-                    copy
+                    {t('index.copy')}
                     </Button>
                 </td>
                 <td>
                     {/* delete button */}
                     <Button variant="danger" onClick={() => handeDeleteMapping(mapping.url)}>
-                    delete
+                    {t('index.delete')}
                     </Button>
                 </td>
                 </tr>
@@ -92,14 +92,14 @@ function Mappings ({data}) {
                 centered
                 >
                 <Modal.Header closeButton>
-                <Modal.Title>Confirm deletion of mapping?</Modal.Title>
+                <Modal.Title>{t('index.confirm_delete')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Footer>
                 <Button variant="secondary" onClick={handeDeleteClose}>
-                    Cancel
+                {t('settings.cancel')}
                 </Button>
                 <Button variant="danger" onClick={() => deleteMapping(deleteURL)}>
-                    Confirm
+                {t('index.confirm')}
                 </Button>
                 </Modal.Footer>
             </Modal>
