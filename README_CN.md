@@ -13,35 +13,36 @@
 - URL所对应的文件可通过URL进行打开
 ## 📦 安装
 ### Windows
-1. 下载并解压[pathlinker_0.2.0_x64_windows.zip](https://github.com/JeseKi/PathLinker/releases/download/v0.2.0/pathlinker_0.2.0_x64_windows.zip)
-2. 双击`pathlinker_0.2.0_x64_en-US.msi`进行安装(**推荐不修改安装路径**)
+1. 下载并解压[pathlinker_0.3.0_x64_windows.zip](https://github.com/JeseKi/PathLinker/releases/download/v0.3.0/pathlinker_0.3.0_x64_windows.zip)
+2. 双击`pathlinker_0.3.0_x64_en-US.msi`进行安装(**推荐不修改安装路径**)
 3. 执行`register.bat`来添加注册表项
 
 ### Linux
 #### deb
-1. 下载[deb包](https://github.com/JeseKi/PathLinker/releases/download/v0.2.0/pathlinker_linux_0.2.0_amd64.deb)
+1. 下载[deb包](https://github.com/JeseKi/PathLinker/releases/download/v0.3.0/pathlinker_0.3.0_amd64.deb)
 
-2. 执行`sudo dpgk -i pathlinker_linux_0.2.0_amd64.deb`
+2. 执行`sudo dpgk -i pathlinker_0.3.0_amd64.deb`
 #### AppImage
-1. 下载并解压[pathlinker_linux_0.2.0_amd64_AppImage.zip](https://github.com/JeseKi/PathLinker/releases/download/v0.2.0/pathlinker_linux_0.2.0_amd64_AppImage.zip)
+1. 下载并解压[pathlinker_0.3.0_amd64_AppImage.zip](https://github.com/JeseKi/PathLinker/releases/download/v0.3.0/pathlinker_0.3.0_amd64_AppImage.zip)
 2. 执行
 ```bash
 # 将应用添加到注册表
 sudo bash init.sh
 # 赋予执行权限
-sudo chmod +x pathlinker_0.2.0_amd64.AppImage
+sudo chmod +x pathlinker_0.3.0_amd64.AppImage
 ```
 
 ### Mac
 由于我还没有Mac，因此希望有Mac的开发者能够帮我完成这个部分，如有意向请联系我的邮箱。
 ## 🛠️ 用法
+### 通过UI
 1. 打开`pathlinker`
 2. 点击`select files`
-![step2](README/step2.png)
+![step2](README/step_2.png)
 3. 选择您要映射的文件(可以一次性选择多个)
 ![step3](README/step3.png)
 4. 您可以点击`copy`来复制该映射对应的URL
-![step4](README/step4.png)
+![step4](README/step_4.png)
 5. 现在您可以在其他地方使用该URL来打开该文件，比如Obsidian(一款Markdown笔记软件):
 ![open_1](README/open_1.png)
 
@@ -56,9 +57,15 @@ sudo chmod +x pathlinker_0.2.0_amd64.AppImage
 6. 现在您点击了URL后，将会使用默认软件进行打开文件:
 ![open_5](README/open_5.png)
 
+### 通过快捷键
+1. 在应用启动时，可通过`ctrl+shift+c`来快速打开一个文件选择器，就像下面这样：
+![step3](README/step3.png)
+2. 选择文件后，将自动生成一个以`[file_name.extension](url)`为标准格式的超链接，并自动复制到剪切板中，您可以直接使用`ctrl+v`来在编辑器中使用它。
+![by_hotkey](README/by_hotkey.png)
+
 ## 📝 ToDo
 - [ ] 支持Mac
-- [ ] 复制文件后允许直接粘贴URL到编辑器中，无需手动创建新映射
+- [x] 可通过快捷键快速创建映射并粘贴到编辑器中
 - [x] 多语言
 - [ ] 自动更新版本
 - [ ] 支持在前端批量管理文件
@@ -66,7 +73,6 @@ sudo chmod +x pathlinker_0.2.0_amd64.AppImage
 - [x] 不依赖原始路径
 - [ ] 设置页面
   - [ ] 源文件删除时，映射路径自动删除
-  - [ ] 设置自动跟踪所使用的目录pathlinker目录
   - [ ] 使用特定的软件来打开指定拓展名的文件
   - [ ] 自定义硬链接创建模式
 - [ ] 打开文件时报错的实现，而非显示`log.txt`
