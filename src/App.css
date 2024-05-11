@@ -19,9 +19,34 @@
   min-height: 38.2vh;
 }
 
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .mappings_table {
   width: auto;
   border: 3px solid #000000;
   border-radius: 10px;
   overflow-y:scroll;
+}
+
+.button_icon{
+  width: 30px;
+  height: 30px;
+  fill: #314d59;
+  transition: fill 0.3s ease;
+}
+
+.button_icon:hover {
+  fill: #ceb2a6;
+}
+.button_icon_delete:hover{
+  fill: red;
+}
+
+.box_no_shadow {
+  box-shadow: none !important;
+  border: none !important;
 }

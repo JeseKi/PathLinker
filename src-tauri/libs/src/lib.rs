@@ -1,18 +1,24 @@
 pub mod utils;
 pub mod db;
 pub mod crud;
-
-mod path_struct;
+pub mod path_struct;
 
 use std::fs;
 use std::path::Path;
 use whoami;
 
+use utils::{ log_to_file , LogType};
+
+// 根据路径创建对应的硬链接
 pub fn hard_link_create(path: &str) -> std::io::Result<String> {
     let user_name = whoami::username();
     let original_path = Path::new(path);
     println!("源路径:{}", original_path.display());
-    utils::log_to_file(&format!("源路径:{}", original_path.display().to_string()), None);
+    log_to_file(
+        &format!("源路径:{}", original_path.display().to_string()), 
+        None , 
+        LogType::Debug
+    );
 
     if !original_path.exists() {
         eprintln!("指定的文件不存在: {}", original_path.display());
@@ -26,7 +32,11 @@ pub fn hard_link_create(path: &str) -> std::io::Result<String> {
     let hard_link_path = path_struct::build_hard_link_path(&original_path_buf, &user_name);
 
     println!("即将创建的硬链接: {:?}", hard_link_path);
-    utils::log_to_file(&format!("即将创建的硬链接: {:?}", hard_link_path), None);
+    log_to_file(
+        &format!("即将创建的硬链接: {:?}", hard_link_path), 
+        None , 
+        LogType::Debug
+    );
 
     // 创建硬链接的目录（如果不存在）
     if let Some(parent) = hard_link_path.parent() {
@@ -45,7 +55,12 @@ pub fn hard_link_create(path: &str) -> std::io::Result<String> {
         Ok(_) => println!("硬链接创建成功"),
         Err(e) => {
             eprintln!("硬链接创建失败: {:?}", e);
-            utils::log_to_file(&format!("硬链接创建失败: {:?}", e), None)
+            log_to_file(
+                &format!("硬链接创建失败: {:?}", e), 
+                None , 
+                LogType::Warning
+            );
+            return Err(e);
         }
     }
 

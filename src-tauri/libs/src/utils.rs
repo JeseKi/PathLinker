@@ -1,57 +1,69 @@
-use rand::{distributions::Alphanumeric, Rng};
-use std::fs::OpenOptions;
+use std::fs::{OpenOptions , create_dir_all};
 use std::io::Write;
 use std::path::PathBuf;
 use chrono::Local;
+use std::sync::{Arc, Mutex};
+use tauri::Window;
+use rusqlite::Connection;
 
-/// Generate a random URL.
-pub fn generate_random_url() -> String {
-    let random_path: String = rand::thread_rng()
-        .sample_iter(&Alphanumeric)
-        .take(10)
-        .map(char::from)
-        .collect();
-
-    format!("pathlinker://{}/", random_path)
+pub struct AppState {
+    pub conn: Arc<Mutex<Connection>>,
+    pub window: Window
 }
 
-/// Writes a message to a log file at the specified path, or to a default path if none is provided.
-///
-/// # Parameters
-/// * `message` - The message to be written to the log file.
-/// * `path` - An optional path for the log file. If None, the function uses the default path in the user's directory.
-///
-/// # Panics
-/// This function will panic if it fails to open the log file or if it fails to write the message to the log file.
-///
-/// # Example
-/// ```rust
-/// use std::path::PathBuf;
-///
-/// log_to_file("Application started successfully", None); // Will use the default path
-///
-/// let custom_path = PathBuf::from("/path/to/custom/log.txt");
-/// log_to_file("User logged in", Some(&custom_path)); // Will use the specified path
-/// ```
-pub fn log_to_file(message: &str, path: Option<&PathBuf>) {
+pub enum LogType {
+    Error,
+    Warning,
+    Debug,
+    Info,
+}
+
+impl LogType {
+    fn as_str(&self) -> &'static str {
+        match self {
+            LogType::Error => "[ERROR]",
+            LogType::Warning => "[WARN]",
+            LogType::Debug => "[DEBUG]",
+            LogType::Info => "[INFO]",
+        }
+    }
+}
+
+/// 将日志记录到文件中
+/// 
+/// 参数:
+/// - message: 要记录的消息
+/// - path: 可选的日志文件路径, 如果不提供则使用默认路径
+/// - log_type: 日志类型
+///     - LogType::Error: 错误日志
+///     - LogType::Warning: 警告日志
+///     - LogType::Debug: 调试日志
+///     - LogType::Info: 普通信息日志
+pub fn log_to_file(message: &str, path: Option<&PathBuf>, log_type: LogType) {
     let now = Local::now();
+
     let log_file_path = if let Some(p) = path {
         p.clone()
     } else {
         let mut default_path = dirs::data_local_dir().expect("Failed to find home directory");
         default_path.push("pathlinker");
-        // 确保日志文件目录存在
-        std::fs::create_dir_all(&default_path).expect("Failed to create directory for log file");
+        create_dir_all(&default_path).expect("Failed to create directory for log file");
         default_path.push("log.txt");
         default_path
     };
 
-    // println!("log_path:{log_file_path:?}");
     let mut file = OpenOptions::new()
         .create(true)
         .append(true)
         .open(&log_file_path)
         .expect("Failed to open log file");
 
-    writeln!(file, "[INFO]\n{}\n[TIME]          {}\n", message, now.format("%Y-%m-%d %H:%M:%S")).expect("Failed to write to log file");
+    writeln!(file, "{} {}\n[TIME]  {}\n", log_type.as_str(), message, now.format("%Y-%m-%d %H:%M:%S")).expect("Failed to write to log file");
+    println!("{} {}\n[TIME]  {}\n", log_type.as_str(), message, now.format("%Y-%m-%d %H:%M:%S"));
 }
+ 
+// 通过前端显示错误信息
+// #[tauri::command]
+// pub fn send_error_message(window: &Window, message: String) {
+//     window.emit("error-message", &message).expect("failed to send error message");
+// }

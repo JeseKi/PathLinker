@@ -47,7 +47,7 @@ fn read_test () {
 
     let conn = crud::connect_db();
 
-    let mappings = db::base_crud::get_all_mappings(&conn);
+    let mappings = db::mapping_base_crud::get_all_mappings(&conn);
 
     match mappings {
         Ok(mappings) => println!("{:?}", mappings),

@@ -1,59 +1,50 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-pub mod backend_opearation;
+mod backend_opearation; 
+mod hotkey_watcher;
 
 use std::sync::{Arc, Mutex};
-use backend_opearation as bo;
-use libs::{crud, utils};
-use rusqlite::Connection;
+use tauri::Manager;
+
+use backend_opearation::{
+    self as bo,
+    mapping_api as bo_mappings
+};
+use libs::{
+    crud::connect_db,
+    utils
+};
+use hotkey_watcher::start_clipboard_key_listener;
 
 fn main() {
 
-    let connection: Arc<Mutex<Connection>> = Arc::new(Mutex::new(crud::connect_db()));
-
-    let app_state: bo::AppState = bo::AppState {
-        conn: connection,
-    };
-
     // 处理自定义协议
     let args: Vec<String> = std::env::args().collect();
-    if args.len() > 1 {
-        let url: &String = &args[1];
-        // utils::log_to_file(&format!("Received URL: {}", url));
-        let conn: Connection = crud::connect_db();
-        // println!("url:{url}");
-        // utils::log_to_file(&format!("Attempting to open URL: {}", url));
-        let flag: Result<(), String> = open_file(&conn, url);
-        match flag {
-            Ok(..) => {
-                utils::log_to_file("URL opened successfully.", None);
-                std::process::exit(0);
-            },
-            Err(..) => {
-                utils::log_to_file("Failed to open URL.", None);
-                std::process::exit(1);
-            },
-        }
-    }
+    bo::process_software_params::handle_custom_protocol(args);
 
     // 程序运行
-    tauri::Builder::default()
-        .manage(app_state)
-        .invoke_handler(tauri::generate_handler![bo::handle_selected_path, bo::get_mappings, bo::delete_mapping])
+    let _app = tauri::Builder::default()
+        .setup(|app|{
+            let window = app.get_window("main").expect("Failed to get main window");
+            let connection = Arc::new(Mutex::new(connect_db()));
+
+            // 创建 AppState 实例并将其存储在 Tauri 的状态管理中
+            let app_state = utils::AppState {
+                conn: connection,
+                window: window.clone(), // 这里假设你需要克隆窗口对象，如果是单一窗口管理则直接传递 window
+            };
+
+            app.manage(app_state); // 将 AppState 存储在 Tauri 状态中
+
+            // 开始监听剪贴板
+            start_clipboard_key_listener();
+
+            Ok(())
+        }) 
+        .invoke_handler(tauri::generate_handler![
+            bo_mappings::handle_selected_path, 
+            bo_mappings::get_mappings, 
+            bo_mappings::delete_mapping,
+            ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
-}
-
-// 根据URL打开对应映射的文件
-fn open_file(conn: &Connection, url: &String) -> Result<(), String> {
-    let path: String = crud::get_hard_link_by_url(conn, url);
-    // utils::log_to_file(&format!("Attempting to open file: {}", &path));
-    let flag: Result<(), std::io::Error> = open::that(&path);
-
-    match flag {
-        Ok(..) => Ok(()),
-        Err(e) => {
-            println!("Failed to open the file: {}", e);
-            Err(e.to_string())
-        }
-    }
 }

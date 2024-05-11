@@ -22,19 +22,23 @@ i18n
           settings: {
             languages: 'Languages',
             title : "Settings",
-            cancel: "Cancel",
-            save: "Save"
           },
           index: {
             name: "Name",
             origin_path: "Origin Path",
             url : "URL",
             select_files : "Select Files",
-            copy : "Copy",
+            refresh: 'Refresh page',
+            change_folder: "Copy/move to other folder",
             copy_done: "URL copied to clipboard",
             delete : "Delete",
-            confirm: "Confirm",
             confirm_delete: "Confirm deletion of mapping?",
+          },
+          common: {
+            cancel: "Cancel",
+            save: "Save",
+            copy : "Copy",
+            confirm: "Confirm",
           }
         }
       },
@@ -43,19 +47,23 @@ i18n
           settings: {
             languages: '选择语言',
             title : "设置",
-            cancel: "取消",
-            save: "保存"
           },
           index: {
             name: "文件名",
             origin_path: "原始路径",
             url : "URL",
             select_files : "选择文件",
-            copy: "复制",
+            refresh: "刷新页面",
+            change_folder: "复制/转移到其他文件夹",
             copy_done: "URL已复制到剪切板",
             delete: "删除",
-            confirm: "确定",
             confirm_delete: "确定删除映射？"
+          },
+          common: {
+            cancel: "取消",
+            save: "保存",
+            copy : "复制",
+            confirm: "确定",
           }
         }
       },
@@ -64,19 +72,23 @@ i18n
           settings: {
             languages: '言語',
             title: "設定",
-            cancel: "キャンセル",
-            save: "保存"
           },
           index: {
             name: "名前",
             origin_path: "元のパス",
             url: "URL",
             select_files: "ファイルを選択",
-            copy: "コピー",
+            refresh: 'ページをリフレッシュ',
+            change_folder:"他のフォルダにコピー/移動",
             copy_done: "URLをクリップボードにコピーしました",
             delete: "削除",
-            confirm: "確認",
             confirm_delete: "マッピングを削除してもよろしいですか？",
+          },
+          common: {
+            cancel: "キャンセル",
+            save: "保存",
+            copy : "コピー",
+            confirm: "確認",
           }
         }
       },
@@ -85,19 +97,23 @@ i18n
           settings: {
             languages: 'Idiomas',
             title: "Configuración",
-            cancel: "Cancelar",
-            save: "Guardar"
           },
           index: {
             name: "Nombre",
             origin_path: "Ruta de origen",
             url: "URL",
             select_files: "Seleccionar archivos",
-            copy: "Copiar",
+            refresh: 'Actualizar página',
+            change_folder: "opiar/Mover a otra carpeta",
             copy_done: "URL copiada al portapapeles",
             delete: "Eliminar",
-            confirm: "Confirmar",
             confirm_delete: "¿Confirmar la eliminación del mapeo?",
+          },
+          common: {
+            cancel: "Cancelar",
+            save: "Guardar",
+            copy : "Copiar",
+            confirm: "Confirmar",
           }
         }
       },
@@ -106,19 +122,23 @@ i18n
           settings: {
             languages: 'भाषाएँ',
             title: "सेटिंग्स",
-            cancel: "रद्द करें",
-            save: "सहेजें"
           },
           index: {
             name: "नाम",
             origin_path: "मूल पथ",
             url: "URL",
             select_files: "फ़ाइलें चुनें",
-            copy: "कॉपी",
+            refresh: 'पृष्ठ ताज़ा करें',
+            change_folder: "दूसरे फ़ोल्डर में कॉपी/मूव करें",
             copy_done: "URL क्लिपबोर्ड पर कॉपी किया गया",
             delete: "हटाएं",
-            confirm: "पुष्टि करें",
             confirm_delete: "मैपिंग हटाने की पुष्टि करें?",
+          },
+          common: {
+            cancel: "रद्द करें",
+            save: "सहेजें",
+            copy : "कॉपी",
+            confirm: "पुष्टि करें",
           }
         }
       },
@@ -127,19 +147,23 @@ i18n
           settings: {
             languages: 'اللغات',
             title: "الإعدادات",
-            cancel: "إلغاء",
-            save: "حفظ"
           },
           index: {
             name: "الاسم",
             origin_path: "المسار الأصلي",
             url: "URL",
             select_files: "اختيار الملفات",
-            copy: "نسخ",
+            refresh: 'تحديث الصفحة' ,
+            change_folder: "نسخ/نقل إلى مجلد آخر",
             copy_done: "تم نسخ الرابط إلى الحافظة",
             delete: "حذف",
-            confirm: "تأكيد",
             confirm_delete: "تأكيد حذف التعيين؟",
+          },
+          common: {
+            cancel: "إلغاء",
+            save: "حفظ",
+            copy : "نسخ",
+            confirm: "تأكيد",
           }
         }
       },
@@ -148,19 +172,23 @@ i18n
           settings: {
             languages: 'Langues',
             title: "Paramètres",
-            cancel: "Annuler",
-            save: "Enregistrer"
           },
           index: {
             name: "Nom",
             origin_path: "Chemin d'origine",
             url: "URL",
             select_files: "Sélectionner des fichiers",
-            copy: "Copier",
+            refresh: 'Rafraîchir la page',
+            change_folder: "Copier/Déplacer vers un autre dossier",
             copy_done: "URL copiée dans le presse-papier",
             delete: "Supprimer",
-            confirm: "Confirmer",
             confirm_delete: "Confirmer la suppression de la cartographie ?",
+          },
+          common: {
+            cancel: "Annuler",
+            save: "Enregistrer",
+            copy : "Copier",
+            confirm: "Confirmer",
           }
         }
       }
